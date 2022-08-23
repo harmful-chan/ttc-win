@@ -9,7 +9,7 @@ using TTC.Win.Extensions;
 
 namespace TTC.Win.Utils
 {
-    internal static class ImageDownload
+    internal static class WebpConverter
     {
         internal static HttpClient HttpClient = null;
         private static readonly string _iconTempPath = Path.Combine(Path.GetTempPath(), "ttc", "icon");

@@ -62,6 +62,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbJoined = new System.Windows.Forms.TrackBar();
             this.tbComment = new System.Windows.Forms.TrackBar();
+            this.flowLayoutPanel10 = new System.Windows.Forms.FlowLayoutPanel();
+            this.cbTranslation = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.txtPrivate = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -108,6 +113,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbJoined)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbComment)).BeginInit();
+            this.flowLayoutPanel10.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel5.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
@@ -127,7 +133,7 @@
             this.SetupToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(914, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(1078, 24);
             this.menuStrip2.TabIndex = 1;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -202,7 +208,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(548, 124);
+            this.txtLog.Size = new System.Drawing.Size(541, 124);
             this.txtLog.TabIndex = 3;
             // 
             // panMain
@@ -213,15 +219,16 @@
             this.panMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panMain.Location = new System.Drawing.Point(0, 24);
             this.panMain.Name = "panMain";
-            this.panMain.Size = new System.Drawing.Size(914, 415);
+            this.panMain.Size = new System.Drawing.Size(1078, 564);
             this.panMain.TabIndex = 9;
+            this.panMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panMain_Paint);
             // 
             // panComment
             // 
             this.panComment.Controls.Add(this.scMain);
             this.panComment.Controls.Add(this.flowLayoutPanel6);
             this.panComment.Controls.Add(this.flpViewers);
-            this.panComment.Location = new System.Drawing.Point(53, 3);
+            this.panComment.Location = new System.Drawing.Point(800, 26);
             this.panComment.Name = "panComment";
             this.panComment.Size = new System.Drawing.Size(869, 253);
             this.panComment.TabIndex = 16;
@@ -425,7 +432,7 @@
             this.panConfig.Controls.Add(this.tableLayoutPanel1);
             this.panConfig.Controls.Add(this.panel3);
             this.panConfig.Controls.Add(this.panel2);
-            this.panConfig.Location = new System.Drawing.Point(657, 285);
+            this.panConfig.Location = new System.Drawing.Point(187, 14);
             this.panConfig.Name = "panConfig";
             this.panConfig.Size = new System.Drawing.Size(537, 544);
             this.panConfig.TabIndex = 15;
@@ -437,6 +444,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tbJoined, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.tbComment, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel10, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.txtPrivate, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel5, 0, 5);
@@ -446,7 +454,7 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowCount = 11;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -456,6 +464,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(517, 544);
             this.tableLayoutPanel1.TabIndex = 7;
@@ -496,6 +505,60 @@
             this.tbComment.TabIndex = 14;
             this.tbComment.Value = 14;
             this.tbComment.Scroll += new System.EventHandler(this.tbComment_Scroll);
+            // 
+            // flowLayoutPanel10
+            // 
+            this.flowLayoutPanel10.Controls.Add(this.cbTranslation);
+            this.flowLayoutPanel10.Controls.Add(this.textBox1);
+            this.flowLayoutPanel10.Controls.Add(this.label10);
+            this.flowLayoutPanel10.Controls.Add(this.textBox2);
+            this.flowLayoutPanel10.Location = new System.Drawing.Point(3, 468);
+            this.flowLayoutPanel10.Name = "flowLayoutPanel10";
+            this.flowLayoutPanel10.Size = new System.Drawing.Size(511, 48);
+            this.flowLayoutPanel10.TabIndex = 18;
+            // 
+            // cbTranslation
+            // 
+            this.cbTranslation.AutoSize = true;
+            this.cbTranslation.Checked = true;
+            this.cbTranslation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTranslation.Location = new System.Drawing.Point(6, 3);
+            this.cbTranslation.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.cbTranslation.Name = "cbTranslation";
+            this.cbTranslation.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cbTranslation.Size = new System.Drawing.Size(138, 20);
+            this.cbTranslation.TabIndex = 0;
+            this.cbTranslation.Text = "show translation";
+            this.cbTranslation.UseVisualStyleBackColor = true;
+            this.cbTranslation.CheckStateChanged += new System.EventHandler(this.cbTranslation_CheckStateChanged);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(150, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(44, 21);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "auto";
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(200, 3);
+            this.label10.Margin = new System.Windows.Forms.Padding(3);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(19, 21);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "⇒";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(225, 3);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(44, 21);
+            this.textBox2.TabIndex = 3;
+            this.textBox2.Text = "zh-ch";
             // 
             // txtPrivate
             // 
@@ -661,9 +724,9 @@
             this.panDebug.Controls.Add(this.flowLayoutPanel2);
             this.panDebug.Controls.Add(this.flowLayoutPanel3);
             this.panDebug.Controls.Add(this.panel1);
-            this.panDebug.Location = new System.Drawing.Point(56, 282);
+            this.panDebug.Location = new System.Drawing.Point(789, 323);
             this.panDebug.Name = "panDebug";
-            this.panDebug.Size = new System.Drawing.Size(558, 208);
+            this.panDebug.Size = new System.Drawing.Size(551, 208);
             this.panDebug.TabIndex = 14;
             // 
             // flowLayoutPanel2
@@ -676,7 +739,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(10, 182);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(548, 26);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(541, 26);
             this.flowLayoutPanel2.TabIndex = 7;
             // 
             // label14
@@ -740,7 +803,7 @@
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(10, 0);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(548, 58);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(541, 58);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
             // label2
@@ -794,7 +857,7 @@
             // 
             this.btnConnection.Location = new System.Drawing.Point(3, 33);
             this.btnConnection.Name = "btnConnection";
-            this.btnConnection.Size = new System.Drawing.Size(83, 22);
+            this.btnConnection.Size = new System.Drawing.Size(91, 22);
             this.btnConnection.TabIndex = 13;
             this.btnConnection.Text = "Connection";
             this.btnConnection.UseVisualStyleBackColor = true;
@@ -812,13 +875,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 439);
+            this.ClientSize = new System.Drawing.Size(1078, 588);
             this.Controls.Add(this.panMain);
             this.Controls.Add(this.menuStrip2);
             this.Font = new System.Drawing.Font("Cascadia Mono", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(500, 473);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TTC - TikTok Comment system for win";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip2.ResumeLayout(false);
@@ -845,6 +909,8 @@
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbJoined)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbComment)).EndInit();
+            this.flowLayoutPanel10.ResumeLayout(false);
+            this.flowLayoutPanel10.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.flowLayoutPanel5.ResumeLayout(false);
@@ -928,5 +994,10 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel9;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lbclipboard;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel10;
+        private System.Windows.Forms.CheckBox cbTranslation;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

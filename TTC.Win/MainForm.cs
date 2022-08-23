@@ -128,6 +128,7 @@ namespace TTC.Win
         }
         #endregion
         //Hans is a legend, this is some hidden code for him to find haha
+        //I also think so
         #region _timerTask
         private System.Windows.Forms.Timer _timerTask; 
         private int _timeTaskCount;
@@ -395,7 +396,7 @@ namespace TTC.Win
             ViewerFontSize = 14;
 
 
-            ImageDownload.HttpClient ??= new HttpClient(new HttpClientHandler()
+            WebpConverter.HttpClient ??= new HttpClient(new HttpClientHandler()
             {
                 UseProxy = _activeUri.Legal(),
                 Proxy = new WebProxy(_activeUri)
@@ -526,7 +527,7 @@ namespace TTC.Win
                 c.IconUrl = e.User.profilePicture.Urls.FirstOrDefault();
                 c.NickName = e.User.Nickname;
                 c.Raw = e.Comment;
-                c.IsTranslate = false;
+                c.IsTranslate = true;
                 _commentList.Add(c);
                 CommentListAppend(c);
             }));
@@ -558,7 +559,7 @@ namespace TTC.Win
             ConnectWaitTimerStop();
             _activeRoom.RoomID = _tiktokClient.RoomID;
             LogHelper.Log($"connection ... {e.IsConnected}");
-            Utils.ImageDownload.HttpClient = new HttpClient(new HttpClientHandler() { Proxy = new WebProxy(_activeUri) })
+            Utils.WebpConverter.HttpClient = new HttpClient(new HttpClientHandler() { Proxy = new WebProxy(_activeUri) })
             {
                 Timeout = TimeSpan.FromSeconds(10),
             };
@@ -594,11 +595,7 @@ namespace TTC.Win
                 return;
             }
 
-            if( await ProxyHelper.DirectTiktok())
-            {
-                _isDirect = true;
-                return;
-            }
+
 
 
             if (await ProxyHelper.Check("127.0.0.1", 3213, "Astrill VPN"))
@@ -614,6 +611,11 @@ namespace TTC.Win
                 return;
             }
 
+            if (await ProxyHelper.DirectTiktok())
+            {
+                _isDirect = true;
+                return;
+            }
 
             var http_proxy = Environment.GetEnvironmentVariable("http_proxy", EnvironmentVariableTarget.User);
             bool isHttp;
@@ -657,7 +659,6 @@ namespace TTC.Win
         }
         #endregion
 
-
         #region resources
         private void InitResources()
         {
@@ -665,19 +666,23 @@ namespace TTC.Win
             {
                 if (!ResourcesHelper.CheckFont("CascadiaCode.ttf"))
                 {
-                    ResourcesHelper.InstallFont("CascadiaCode.ttf");
+                    if (ResourcesHelper.InstallFont("CascadiaCode.ttf"))
+                        LogHelper.Log("Installed font CascadiaCode.ttf");
                 }
-                LogHelper.Log("Installed font CascadiaCode.ttf");
-
                 if (!ResourcesHelper.CheckFont("CascadiaMono.ttf"))
                 {
-                    ResourcesHelper.InstallFont("CascadiaMono.ttf");
+                    if(ResourcesHelper.InstallFont("CascadiaMono.ttf"))
+                        LogHelper.Log("Installed font CascadiaMono.ttf");
                 }
-                LogHelper.Log("Installed font CascadiaMono.ttf");
+                if (!ResourcesHelper.CheckLib("libwebp.dll"))
+                {
+                    if (ResourcesHelper.InstallLib("libwebp.dll"))
+                        LogHelper.Log("Installed lib libwebp.dll");
+                }
             }
             catch(Exception e)
             {
-                LogHelper.Log("install font fail " + e.Message);
+                LogHelper.Log("install fail " + e.Message);
             }
             
         }
@@ -739,6 +744,7 @@ namespace TTC.Win
             CommentControl c = new CommentControl(comment);
             c.FontSize = _commentFontSize;
             c.LoadIcon();
+            c.LoadChinese();
             
             flpComment.Controls.Add(c);
             flpComment.ScrollControlIntoView(c);
@@ -757,7 +763,7 @@ namespace TTC.Win
             label.AutoSize = true;
             label.Padding = new Padding(0, 0, 0, 0);
             label.Text = nickName;
-            label.ForeColor = Color.OrangeRed;
+            label.ForeColor = Color.Indigo;
             SetLabelSize(label, JoinedFontSize);
             flpJoined.Controls.Add(label);
             flpJoined.ScrollControlIntoView(label);
@@ -846,13 +852,6 @@ namespace TTC.Win
         private void tbComment_Scroll(object sender, EventArgs e)
         {
             CommentFontSize = this.tbComment.Value;
-            /*foreach (var item in flpComment.Controls)
-            {
-                if( item is Label)
-                {
-                    SetLabelSize(item as Label, CommentFontSize);
-                }
-            }*/
             foreach (var item in flpComment.Controls)
             {
                 if( item is IAdaptiveable a)
@@ -928,6 +927,22 @@ namespace TTC.Win
                 Private p = _privates.Where(p => p.UniqueID.Equals(cbUniqueID.Text)).FirstOrDefault();
                 this.txtCookies.Text = p.SessionID;
                 _activeRoom.UniqueID = p.UniqueID;
+            }
+        }
+
+        private void panMain_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void cbTranslation_CheckStateChanged(object sender, EventArgs e)
+        {
+            foreach (var item in flpComment.Controls)
+            {
+                if( item is CommentControl c)
+                {
+                    c.IsTranslate = cbTranslation.Checked;
+                }
             }
         }
     }

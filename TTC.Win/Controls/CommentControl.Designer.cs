@@ -31,7 +31,6 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.pbIcon = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.lb1 = new System.Windows.Forms.Label();
             this.lbRaw = new System.Windows.Forms.Label();
@@ -65,40 +64,32 @@
             // 
             this.flowLayoutPanel2.AutoSize = true;
             this.flowLayoutPanel2.Controls.Add(this.pbIcon);
-            this.flowLayoutPanel2.Controls.Add(this.label1);
             this.flowLayoutPanel2.Controls.Add(this.lbName);
             this.flowLayoutPanel2.Controls.Add(this.lb1);
             this.flowLayoutPanel2.Controls.Add(this.lbRaw);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(121, 22);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(93, 22);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
             // pbIcon
             // 
-            this.pbIcon.Location = new System.Drawing.Point(3, 3);
-            this.pbIcon.MinimumSize = new System.Drawing.Size(16, 16);
+            this.pbIcon.Location = new System.Drawing.Point(0, 3);
+            this.pbIcon.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.pbIcon.Name = "pbIcon";
             this.pbIcon.Size = new System.Drawing.Size(16, 16);
+            this.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbIcon.TabIndex = 0;
             this.pbIcon.TabStop = false;
             this.pbIcon.Click += new System.EventHandler(this.pbIcon_Click);
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(25, 3);
-            this.label1.Margin = new System.Windows.Forms.Padding(3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 16);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "I";
             // 
             // lbName
             // 
             this.lbName.AutoSize = true;
             this.lbName.Font = new System.Drawing.Font("Cascadia Mono", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbName.Location = new System.Drawing.Point(44, 3);
+            this.lbName.ForeColor = System.Drawing.Color.Indigo;
+            this.lbName.Location = new System.Drawing.Point(16, 3);
             this.lbName.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lbName.Name = "lbName";
             this.lbName.Size = new System.Drawing.Size(35, 16);
@@ -109,7 +100,7 @@
             // lb1
             // 
             this.lb1.AutoSize = true;
-            this.lb1.Location = new System.Drawing.Point(79, 3);
+            this.lb1.Location = new System.Drawing.Point(51, 3);
             this.lb1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lb1.Name = "lb1";
             this.lb1.Size = new System.Drawing.Size(14, 16);
@@ -121,7 +112,7 @@
             // lbRaw
             // 
             this.lbRaw.AutoSize = true;
-            this.lbRaw.Location = new System.Drawing.Point(93, 3);
+            this.lbRaw.Location = new System.Drawing.Point(65, 3);
             this.lbRaw.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lbRaw.Name = "lbRaw";
             this.lbRaw.Size = new System.Drawing.Size(28, 16);
@@ -139,7 +130,7 @@
             this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 22);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(146, 17);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(77, 17);
             this.flowLayoutPanel3.TabIndex = 2;
             // 
             // lbExpand
@@ -148,43 +139,40 @@
             this.lbExpand.Location = new System.Drawing.Point(0, 0);
             this.lbExpand.Margin = new System.Windows.Forms.Padding(0);
             this.lbExpand.Name = "lbExpand";
-            this.lbExpand.Size = new System.Drawing.Size(63, 16);
+            this.lbExpand.Size = new System.Drawing.Size(21, 16);
             this.lbExpand.TabIndex = 0;
-            this.lbExpand.Text = "        ";
+            this.lbExpand.Text = "  ";
             // 
             // lb2
             // 
             this.lb2.AutoSize = true;
-            this.lb2.Location = new System.Drawing.Point(63, 0);
+            this.lb2.ForeColor = System.Drawing.Color.Red;
+            this.lb2.Location = new System.Drawing.Point(21, 0);
             this.lb2.Margin = new System.Windows.Forms.Padding(0);
             this.lb2.Name = "lb2";
-            this.lb2.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.lb2.Size = new System.Drawing.Size(20, 16);
+            this.lb2.Size = new System.Drawing.Size(21, 16);
             this.lb2.TabIndex = 3;
-            this.lb2.Text = "→";
+            this.lb2.Text = "┕▶";
             // 
             // lb3
             // 
             this.lb3.AutoSize = true;
-            this.lb3.BackColor = System.Drawing.Color.Red;
+            this.lb3.BackColor = System.Drawing.Color.Transparent;
             this.lb3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lb3.ForeColor = System.Drawing.Color.Yellow;
-            this.lb3.Location = new System.Drawing.Point(83, 0);
+            this.lb3.ForeColor = System.Drawing.Color.Red;
+            this.lb3.Location = new System.Drawing.Point(42, 0);
             this.lb3.Margin = new System.Windows.Forms.Padding(0);
             this.lb3.Name = "lb3";
-            this.lb3.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.lb3.Size = new System.Drawing.Size(22, 17);
+            this.lb3.Size = new System.Drawing.Size(0, 17);
             this.lb3.TabIndex = 1;
-            this.lb3.Text = "C";
             // 
             // lbChinese
             // 
             this.lbChinese.AutoSize = true;
-            this.lbChinese.Location = new System.Drawing.Point(105, 0);
+            this.lbChinese.Location = new System.Drawing.Point(42, 0);
             this.lbChinese.Margin = new System.Windows.Forms.Padding(0);
             this.lbChinese.Name = "lbChinese";
-            this.lbChinese.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.lbChinese.Size = new System.Drawing.Size(41, 16);
+            this.lbChinese.Size = new System.Drawing.Size(35, 16);
             this.lbChinese.TabIndex = 2;
             this.lbChinese.Text = "中文";
             // 
@@ -222,6 +210,5 @@
         private System.Windows.Forms.Label lb3;
         private System.Windows.Forms.Label lbChinese;
         private System.Windows.Forms.Label lb2;
-        private System.Windows.Forms.Label label1;
     }
 }

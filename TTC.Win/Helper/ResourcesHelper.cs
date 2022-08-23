@@ -10,8 +10,8 @@ namespace TTC.Win.Helper
 
     internal static class ResourcesHelper
     {
-        readonly static string _resourcesPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Resources");
-
+        private readonly static string _resourcesPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Resources");
+        private readonly static string _exePath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern int WriteProfileString(string lpszSection, string lpszKeyName, string lpszString);
 
@@ -61,5 +61,15 @@ namespace TTC.Win.Helper
             return File.Exists(FontPath);
         }
 
+
+        public static bool CheckLib(string libNmae)
+        {
+            return File.Exists(Path.Combine(_exePath, libNmae));
+        }
+        public static bool InstallLib(string libNmae)
+        {
+            File.Copy(Path.Combine(_resourcesPath, libNmae), Path.Combine(_exePath, libNmae));
+            return CheckFont(libNmae);
+        }
     }
 }

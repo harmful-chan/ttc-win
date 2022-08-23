@@ -83,11 +83,8 @@ namespace TTC.Win.Controls
         {
             get { return _isTranslate; }
             set { 
-                _isTranslate = value; 
-                if( !_isTranslate)
-                {
-                    flowLayoutPanel3.Visible = false;
-                }
+                _isTranslate = value;
+                flowLayoutPanel3.Visible = _isTranslate;
             }
         }
 
@@ -107,9 +104,12 @@ namespace TTC.Win.Controls
                 SetLabelSize(this.lb2, _fontSize);
                 SetLabelSize(this.lb3, _fontSize);
                 SetLabelSize(this.lbChinese, _fontSize);
+                if(_localIcon.Legal())
+                    this.pbIcon.Size = new Size(this.lbName.Height, this.lbName.Height);
                 ResizeControl();
             }
         }
+
         private void SetLabelSize(Label lable, float size)
         {
             if (size > 0)
@@ -136,51 +136,26 @@ namespace TTC.Win.Controls
             Uri uri = new Uri(_iconUrl);
             if (uri.IsAbsoluteUri)
             {
-               
                 try
                 {
                     string fileName = GetLocalIconFileName(uri.AbsolutePath);
-                    string localFileName = await ImageDownload.StorageAsync(fileName, uri.AbsoluteUri);
-
-                    Image image = Image.FromFile(localFileName);
-                    this.pbIcon.Image = ResizeImage(image, new Size(16, 16));
+                    string localFileName = await WebpConverter.StorageAsync(fileName, uri.AbsoluteUri);
+                    this.pbIcon.Load(localFileName);
+                    this.pbIcon.Size = new Size(this.lbName.Height, this.lbName.Height);
+                    _localIcon = localFileName;
                 }
-                catch
-                {
-                    _localIcon = null;
-                }
+                catch { }
+            }
+        }
+        internal async void LoadChinese()
+        {
+            if (_isTranslate)
+            {
+                this.Chinese = "...";
+                this.Chinese = await Translate.GetGoogleApiResAsync(this.Raw);
             }
         }
 
-        private Image ResizeImage(Image image, Size size)
-        {
-            //获取图片宽度
-            int sourceWidth = image.Width;
-            //获取图片高度
-            int sourceHeight = image.Height;
-            float nPercent;
-
-            //计算宽度的缩放比例
-            float nPercentW = ((float)size.Width / (float)sourceWidth);
-            //计算高度的缩放比例
-            float nPercentH = ((float)size.Height / (float)sourceHeight);
-            if (nPercentH < nPercentW)
-                nPercent = nPercentH;
-            else
-                nPercent = nPercentW;
-            //期望的宽度
-            int destWidth = (int)(sourceWidth * nPercent);
-            //期望的高度
-            int destHeight = (int)(sourceHeight * nPercent);
-
-            Bitmap b = new Bitmap(destWidth, destHeight);
-            Graphics g = Graphics.FromImage(b);
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            //绘制图像
-            g.DrawImage(image, 0, 0, destWidth, destHeight);
-            g.Dispose();
-            return b;
-        }
         private string GetLocalIconFileName(string urlPath)
         {
             return Path.GetFileName(urlPath).Replace(':', '_').Replace(".webp", ".jpeg");
