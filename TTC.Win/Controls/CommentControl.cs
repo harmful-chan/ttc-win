@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TTC.Win.Extensions;
 using TTC.Win.Models;
+using TTC.Win.Utils;
 
 namespace TTC.Win.Controls
 {
@@ -26,8 +30,14 @@ namespace TTC.Win.Controls
             Raw = comment.Raw;
             IconUrl = comment.IconUrl;
             IsTranslate = comment.IsTranslate;
+
+            if ( comment is FollowComment)
+            {
+                this.lbRaw.ForeColor = Color.Gold;
+            }
         }
 
+        public PictureBox PictureBox => this.pbIcon;
 
         private string _name;
 
@@ -60,11 +70,10 @@ namespace TTC.Win.Controls
             get { return _iconUrl; }
             set { 
                 _iconUrl = value; 
-                /*if( !_iconUrl.Legal())
+                if( !_iconUrl.Legal())
                 {
                     this.pbIcon.Visible = false;
-                    this.pbIcon.Enabled = false;
-                }*/
+                }
             }
         }
 
@@ -75,11 +84,10 @@ namespace TTC.Win.Controls
             get { return _isTranslate; }
             set { 
                 _isTranslate = value; 
-                /*if( !_isTranslate)
+                if( !_isTranslate)
                 {
                     flowLayoutPanel3.Visible = false;
-                    flowLayoutPanel3.Enabled = false;
-                }*/
+                }
             }
         }
 
@@ -119,6 +127,64 @@ namespace TTC.Win.Controls
             int w2 = this.lbExpand.Width + lb2.Width + lb3.Width + lbChinese.Width;
             this.Width = w1 >= w2 ? w1 : w2;
         }
+
+
+        private string _localIcon = null;
+
+        internal async void LoadIcon()
+        {
+            Uri uri = new Uri(_iconUrl);
+            if (uri.IsAbsoluteUri)
+            {
+               
+                try
+                {
+                    string fileName = GetLocalIconFileName(uri.AbsolutePath);
+                    string localFileName = await ImageDownload.StorageAsync(fileName, uri.AbsoluteUri);
+
+                    Image image = Image.FromFile(localFileName);
+                    this.pbIcon.Image = ResizeImage(image, new Size(16, 16));
+                }
+                catch
+                {
+                    _localIcon = null;
+                }
+            }
+        }
+
+        private Image ResizeImage(Image image, Size size)
+        {
+            //获取图片宽度
+            int sourceWidth = image.Width;
+            //获取图片高度
+            int sourceHeight = image.Height;
+            float nPercent;
+
+            //计算宽度的缩放比例
+            float nPercentW = ((float)size.Width / (float)sourceWidth);
+            //计算高度的缩放比例
+            float nPercentH = ((float)size.Height / (float)sourceHeight);
+            if (nPercentH < nPercentW)
+                nPercent = nPercentH;
+            else
+                nPercent = nPercentW;
+            //期望的宽度
+            int destWidth = (int)(sourceWidth * nPercent);
+            //期望的高度
+            int destHeight = (int)(sourceHeight * nPercent);
+
+            Bitmap b = new Bitmap(destWidth, destHeight);
+            Graphics g = Graphics.FromImage(b);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            //绘制图像
+            g.DrawImage(image, 0, 0, destWidth, destHeight);
+            g.Dispose();
+            return b;
+        }
+        private string GetLocalIconFileName(string urlPath)
+        {
+            return Path.GetFileName(urlPath).Replace(':', '_').Replace(".webp", ".jpeg");
+        }
         #endregion
 
 
@@ -128,6 +194,16 @@ namespace TTC.Win.Controls
         }
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pbIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }

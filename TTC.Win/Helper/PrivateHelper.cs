@@ -29,7 +29,9 @@ namespace TTC.Win.Helper
                 Directory.CreateDirectory(_privateTempPath);
 
             if (!File.Exists(_privateFileName))
-                File.Create(_privateFileName);
+            {
+                File.WriteAllText(_privateFileName, TempPrivate());
+            }
         }
 
 
@@ -37,11 +39,7 @@ namespace TTC.Win.Helper
         {
             string str = File.ReadAllText(_privateFileName);
 
-            if (!str.Legal())
-            {
-                str = TempPrivate();
-            }
-            return str;
+            return str.Legal() ? str : TempPrivate();
         }
         internal static void SavePrivate(string str)
         {

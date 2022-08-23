@@ -85,11 +85,7 @@ namespace TikTokLiveSharp.Client
 
         public int? ViewerCount => this.viewerCount;
 
-        public TikTokHTTPClient HttpClient
-        {
-            get { return http; }
-            set { http = value; }
-        }
+        public TikTokHTTPClient HttpClient => this.http;
 
         /// <summary>
         /// Async method to start the client.

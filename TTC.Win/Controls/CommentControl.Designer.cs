@@ -31,6 +31,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.pbIcon = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.lb1 = new System.Windows.Forms.Label();
             this.lbRaw = new System.Windows.Forms.Label();
@@ -56,7 +57,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(345, 62);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(345, 50);
             this.flowLayoutPanel1.TabIndex = 0;
             this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
@@ -64,13 +65,14 @@
             // 
             this.flowLayoutPanel2.AutoSize = true;
             this.flowLayoutPanel2.Controls.Add(this.pbIcon);
+            this.flowLayoutPanel2.Controls.Add(this.label1);
             this.flowLayoutPanel2.Controls.Add(this.lbName);
             this.flowLayoutPanel2.Controls.Add(this.lb1);
             this.flowLayoutPanel2.Controls.Add(this.lbRaw);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(99, 22);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(121, 22);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
             // pbIcon
@@ -81,13 +83,23 @@
             this.pbIcon.Size = new System.Drawing.Size(16, 16);
             this.pbIcon.TabIndex = 0;
             this.pbIcon.TabStop = false;
+            this.pbIcon.Click += new System.EventHandler(this.pbIcon_Click);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(25, 3);
+            this.label1.Margin = new System.Windows.Forms.Padding(3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "I";
             // 
             // lbName
             // 
             this.lbName.AutoSize = true;
             this.lbName.Font = new System.Drawing.Font("Cascadia Mono", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbName.Location = new System.Drawing.Point(22, 0);
-            this.lbName.Margin = new System.Windows.Forms.Padding(0);
+            this.lbName.Location = new System.Drawing.Point(44, 3);
+            this.lbName.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lbName.Name = "lbName";
             this.lbName.Size = new System.Drawing.Size(35, 16);
             this.lbName.TabIndex = 1;
@@ -97,8 +109,8 @@
             // lb1
             // 
             this.lb1.AutoSize = true;
-            this.lb1.Location = new System.Drawing.Point(57, 0);
-            this.lb1.Margin = new System.Windows.Forms.Padding(0);
+            this.lb1.Location = new System.Drawing.Point(79, 3);
+            this.lb1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lb1.Name = "lb1";
             this.lb1.Size = new System.Drawing.Size(14, 16);
             this.lb1.TabIndex = 2;
@@ -109,8 +121,8 @@
             // lbRaw
             // 
             this.lbRaw.AutoSize = true;
-            this.lbRaw.Location = new System.Drawing.Point(71, 0);
-            this.lbRaw.Margin = new System.Windows.Forms.Padding(0);
+            this.lbRaw.Location = new System.Drawing.Point(93, 3);
+            this.lbRaw.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lbRaw.Name = "lbRaw";
             this.lbRaw.Size = new System.Drawing.Size(28, 16);
             this.lbRaw.TabIndex = 3;
@@ -184,7 +196,7 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "CommentControl";
-            this.Size = new System.Drawing.Size(345, 62);
+            this.Size = new System.Drawing.Size(345, 50);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
@@ -210,5 +222,6 @@
         private System.Windows.Forms.Label lb3;
         private System.Windows.Forms.Label lbChinese;
         private System.Windows.Forms.Label lb2;
+        private System.Windows.Forms.Label label1;
     }
 }

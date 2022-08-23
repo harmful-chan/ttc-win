@@ -4,7 +4,24 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Resources\TTC.ico</ApplicationIcon>
+    <BaseOutputPath></BaseOutputPath>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\CascadiaCode.ttf" />
+    <None Remove="Resources\CascadiaMono.ttf" />
+    <None Remove="Resources\libwebp.dll" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TikTokLiveSharp\TikTokLiveSharp.csproj" />
@@ -35,6 +52,23 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\CascadiaCode.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CascadiaMono.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\libwebp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TTC.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Imazen.WebP" Version="10.0.1" />
   </ItemGroup>
 
 </Project>

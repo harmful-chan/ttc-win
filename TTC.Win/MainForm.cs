@@ -42,15 +42,18 @@ namespace TTC.Win
 
             SwitchMode(this.debugModeToolStripMenuItem);
             InitPrivate();
-            InitRoomData();
-            InitConnectWaitTimer();
-            InitTaskTimer();
-            InitTiktokClient();
+            InitResources();
             InitAvailableProxy();
-            
             InitcCommentPanelData();
+          
+            InitRoomData();
+            InitTiktokClient();
+            InitConnectWaitTimer();
+            
+            InitTaskTimer();
 
-            if( _privates != null && _privates.Length > 0)
+
+            if ( _privates != null && _privates.Length > 0)
             {
                 string[] us = Array.ConvertAll(_privates, p => p.UniqueID);
                 this.cbUniqueID.Items.AddRange(us);
@@ -124,7 +127,7 @@ namespace TTC.Win
             LogHelper.Log($"connecting ... {_timeConnectCount}");
         }
         #endregion
-
+        //Hans is a legend, this is some hidden code for him to find haha
         #region _timerTask
         private System.Windows.Forms.Timer _timerTask; 
         private int _timeTaskCount;
@@ -139,6 +142,7 @@ namespace TTC.Win
         private async void _timerTask_Tick(object sender, EventArgs e)
         {
             _timeTaskCount++;
+            _activeRoom.UploadAddress = await ExtractExportIPAsync();
             if (_tiktokClient.Connected)
             {
                 if (await HistoryHelper.SaveRoom(_activeRoom.Clone()))
@@ -225,9 +229,9 @@ namespace TTC.Win
 
                 _joinedList.Add(v);
                 JoinedListAppend(v);
-                JoinedComment jc = new JoinedComment(v);
-                _commentList.Add(jc);
-                CommentListAppend(jc);
+                //JoinedComment jc = new JoinedComment(v);
+                //_commentList.Add(jc);
+                //CommentListAppend(jc);
             }
                
 
@@ -389,6 +393,16 @@ namespace TTC.Win
             CommentFontSize = 14;
             JoinedFontSize = 14;
             ViewerFontSize = 14;
+
+
+            ImageDownload.HttpClient ??= new HttpClient(new HttpClientHandler()
+            {
+                UseProxy = _activeUri.Legal(),
+                Proxy = new WebProxy(_activeUri)
+            })
+            {
+                Timeout = TimeSpan.FromSeconds(5)
+            };
         }
 
 
@@ -526,12 +540,8 @@ namespace TTC.Win
         private void _tiktokClient_OnJoin(object sender, TikTokLiveSharp.Protobuf.WebcastMemberMessage e)
         {
             _activeRoom.Viewers += 1;
-            //_activeRoom.Joined++;
             this.BeginInvoke(new MethodInvoker(() =>
             {
-                //JoinedComment j = new JoinedComment(e.User.Nickname);
-                //_commentList.Add(j);
-                //CommentListAppend(j);
                 _joinedList.Add(e.User.Nickname);
                 JoinedListAppend(e.User.Nickname);
             }));
@@ -548,7 +558,10 @@ namespace TTC.Win
             ConnectWaitTimerStop();
             _activeRoom.RoomID = _tiktokClient.RoomID;
             LogHelper.Log($"connection ... {e.IsConnected}");
-
+            Utils.ImageDownload.HttpClient = new HttpClient(new HttpClientHandler() { Proxy = new WebProxy(_activeUri) })
+            {
+                Timeout = TimeSpan.FromSeconds(10),
+            };
             if (HistoryHelper.RoomExists(_activeRoom.RoomID))
             {
                 this.BeginInvoke(new MethodInvoker( async () =>
@@ -595,18 +608,12 @@ namespace TTC.Win
             }
 
 
-            if (await ProxyHelper.Check("127.0.0.1", 1080, "SS"))
+            if (await ProxyHelper.Check("127.0.0.1", 1080, "SS/SSR"))
             {
                 _activeUri = new Uri("http://127.0.0.1:1080");
                 return;
             }
 
-
-            if (await ProxyHelper.Check("127.0.0.1", 1081, "SSR"))
-            {
-                _activeUri = new Uri("http://127.0.0.1:1081");
-                return;
-            }
 
             var http_proxy = Environment.GetEnvironmentVariable("http_proxy", EnvironmentVariableTarget.User);
             bool isHttp;
@@ -649,6 +656,32 @@ namespace TTC.Win
             }
         }
         #endregion
+
+
+        #region resources
+        private void InitResources()
+        {
+            try
+            {
+                if (!ResourcesHelper.CheckFont("CascadiaCode.ttf"))
+                {
+                    ResourcesHelper.InstallFont("CascadiaCode.ttf");
+                }
+                LogHelper.Log("Installed font CascadiaCode.ttf");
+
+                if (!ResourcesHelper.CheckFont("CascadiaMono.ttf"))
+                {
+                    ResourcesHelper.InstallFont("CascadiaMono.ttf");
+                }
+                LogHelper.Log("Installed font CascadiaMono.ttf");
+            }
+            catch(Exception e)
+            {
+                LogHelper.Log("install font fail " + e.Message);
+            }
+            
+        }
+        #endregion
         private void SendChangeInfo(string propertyName)
         {
             if (this.PropertyChanged != null)
@@ -669,17 +702,18 @@ namespace TTC.Win
         int _commentListCount = 1;
         private void CommentListAppend(Comment comment)
         {
-            string name = comment.NickName;
-            name = _commentListCount++ + " " + name;   
-            
+            /*string name = comment.NickName;
+            name = _commentListCount++ + " " + name;
+
             Label label = new Label();
             label.AutoSize = true;
             label.Padding = new Padding(10, 10, 0, 0);
             label.Text = name + " : " + comment.Raw;
-            if( comment is JoinedComment)
+            if (comment is JoinedComment)
             {
                 label.ForeColor = Color.OrangeRed;
-            }else if( comment is FollowComment)
+            }
+            else if (comment is FollowComment)
             {
                 label.ForeColor = Color.Gold;
             }
@@ -693,7 +727,7 @@ namespace TTC.Win
             flpComment.ScrollControlIntoView(label);
 
 
-            if ( comment.IsTranslate)
+            if (comment.IsTranslate)
             {
                 Label lb = new Label();
                 lb.Text = "      " + " ➥ " + comment.Raw;
@@ -701,9 +735,13 @@ namespace TTC.Win
                 SetLabelSize(lb, CommentFontSize);
                 flpComment.Controls.Add(lb);
                 flpComment.ScrollControlIntoView(lb);
-            }
-
+            }*/
+            CommentControl c = new CommentControl(comment);
+            c.FontSize = _commentFontSize;
+            c.LoadIcon();
             
+            flpComment.Controls.Add(c);
+            flpComment.ScrollControlIntoView(c);
         }
 
         private void JoinedListAppendRange(List<string> joinedList)
@@ -808,11 +846,18 @@ namespace TTC.Win
         private void tbComment_Scroll(object sender, EventArgs e)
         {
             CommentFontSize = this.tbComment.Value;
-            foreach (var item in flpComment.Controls)
+            /*foreach (var item in flpComment.Controls)
             {
                 if( item is Label)
                 {
                     SetLabelSize(item as Label, CommentFontSize);
+                }
+            }*/
+            foreach (var item in flpComment.Controls)
+            {
+                if( item is IAdaptiveable a)
+                {
+                    a.FontSize = CommentFontSize;
                 }
             }
         }
@@ -838,20 +883,6 @@ namespace TTC.Win
                     (item as DataControl).FontSize = ViewerFontSize;
                 }
             }
-
-        }
-        private void menuStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbCommentFontSize_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -890,7 +921,6 @@ namespace TTC.Win
                 }
             }
         }
-
         private void cbUniqueID_TextChanged(object sender, EventArgs e)
         {
             if (cbUniqueID.Text.Legal())

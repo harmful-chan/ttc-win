@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,7 +130,6 @@
             this.menuStrip2.Size = new System.Drawing.Size(914, 24);
             this.menuStrip2.TabIndex = 1;
             this.menuStrip2.Text = "menuStrip2";
-            this.menuStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip2_ItemClicked);
             // 
             // FileToolStripMenuItem
             // 
@@ -540,7 +540,6 @@
             this.lbCommentFontSize.Size = new System.Drawing.Size(21, 16);
             this.lbCommentFontSize.TabIndex = 15;
             this.lbCommentFontSize.Text = "14";
-            this.lbCommentFontSize.Click += new System.EventHandler(this.lbCommentFontSize_Click);
             // 
             // flowLayoutPanel5
             // 
@@ -817,9 +816,10 @@
             this.Controls.Add(this.panMain);
             this.Controls.Add(this.menuStrip2);
             this.Font = new System.Drawing.Font("Cascadia Mono", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(500, 473);
             this.Name = "MainForm";
-            this.Text = "TTC - Tiktok Comment System for win";
+            this.Text = "TTC - TikTok Comment system for win";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();

@@ -74,5 +74,11 @@ namespace TikTokLiveSharp.Client
             var request = this.BuildRequest(url, parameters);
             return await request.Post(new StringContent(data, Encoding.UTF8));
         }
+
+        public async Task<System.IO.Stream> DownloadImageStreamAsync(string url)
+        {
+
+            return await new TikTokHttpRequest(url).GetStreamAsync(url);
+        }
     }
 }

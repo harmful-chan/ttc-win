@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -151,5 +152,16 @@ namespace TikTokLiveSharp.Client.Requests
                 ct.CharSet = ct.CharSet.Replace("\"", "");
             return response.Content;
         }
+
+        public async Task<System.IO.Stream> GetStreamAsync(string url)
+        {
+            if (this.sent) throw new Exception("Requests should not be reused");
+            this.request.Method = HttpMethod.Get;
+            byte[] bytes = await client.GetByteArrayAsync(url);
+            Stream stream = new MemoryStream(bytes);
+            return stream;
+        }
+
+
     }
 }
