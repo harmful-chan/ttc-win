@@ -707,40 +707,6 @@ namespace TTC.Win
         int _commentListCount = 1;
         private void CommentListAppend(Comment comment)
         {
-            /*string name = comment.NickName;
-            name = _commentListCount++ + " " + name;
-
-            Label label = new Label();
-            label.AutoSize = true;
-            label.Padding = new Padding(10, 10, 0, 0);
-            label.Text = name + " : " + comment.Raw;
-            if (comment is JoinedComment)
-            {
-                label.ForeColor = Color.OrangeRed;
-            }
-            else if (comment is FollowComment)
-            {
-                label.ForeColor = Color.Gold;
-            }
-            else
-            {
-                label.ForeColor = SystemColors.WindowText;
-            }
-            label.DoubleClick += Label_DoubleClick;
-            SetLabelSize(label, CommentFontSize);
-            flpComment.Controls.Add(label);
-            flpComment.ScrollControlIntoView(label);
-
-
-            if (comment.IsTranslate)
-            {
-                Label lb = new Label();
-                lb.Text = "      " + " ➥ " + comment.Raw;
-                lb.AutoSize = true;
-                SetLabelSize(lb, CommentFontSize);
-                flpComment.Controls.Add(lb);
-                flpComment.ScrollControlIntoView(lb);
-            }*/
             CommentControl c = new CommentControl(comment);
             c.FontSize = _commentFontSize;
             c.LoadIcon();

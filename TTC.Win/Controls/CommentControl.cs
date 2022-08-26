@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -84,7 +85,7 @@ namespace TTC.Win.Controls
             get { return _isTranslate; }
             set { 
                 _isTranslate = value;
-                flowLayoutPanel3.Visible = _isTranslate;
+                flowLayoutPanel3.Visible = _isTranslate && _iconUrl.Legal();
             }
         }
 
@@ -133,19 +134,20 @@ namespace TTC.Win.Controls
 
         internal async void LoadIcon()
         {
-            Uri uri = new Uri(_iconUrl);
-            if (uri.IsAbsoluteUri)
+            try
             {
-                try
+                Uri uri = new Uri(_iconUrl);
+                if (uri.IsAbsoluteUri)
                 {
                     string fileName = GetLocalIconFileName(uri.AbsolutePath);
                     string localFileName = await WebpConverter.StorageAsync(fileName, uri.AbsoluteUri);
                     this.pbIcon.Load(localFileName);
                     this.pbIcon.Size = new Size(this.lbName.Height, this.lbName.Height);
                     _localIcon = localFileName;
+
                 }
-                catch { }
             }
+            catch { }
         }
         internal async void LoadChinese()
         {
